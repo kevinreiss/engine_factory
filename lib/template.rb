@@ -21,12 +21,12 @@ inside plugin_path do
   end
 
   # Remove MIT-LICENSE file
-	remove_file 'MIT-LICENSE'
+  remove_file 'MIT-LICENSE'
 
   # Add LICENSE file for Apache2
-	create_file "LICENSE" do
-		copyright_statement = ask("What copyright statement should be included in the license? (e.g., Copyright 2014 University of Example)"
-		<<EOF
+  create_file "LICENSE" do
+    copyright_statement = ask("What copyright statement should be included in the license? (e.g., Copyright 2014 University of Example)")
+    <<-EOF
 ##########################################################################
 # #{copyright_statement}
 #
@@ -41,14 +41,22 @@ inside plugin_path do
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-		EOF
-	end
+    EOF
+  end
 
   # Rename gemspec
 
   # Remove README.rdoc
+  run "rm README.rdoc"
 
   # Add README.md
+  create_file "README.md" do
+    puts "*"*80
+    puts "#{name}"
+    app_name = "# #{name.camelize}\n"
+    app_desc = "This project rocks and uses APACHE-LICENSE.\n"
+    "#{app_name}\n#{app_desc}"
+  end
 
   # Add `s.license = "APACHE"` to gemspec
 
